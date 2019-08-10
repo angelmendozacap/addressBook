@@ -15,4 +15,9 @@ class ContactsController extends Controller
     {
         Contact::create($request->all());
     }
+
+    public function update(StoreContactsRequest $request, Contact $contact)
+    {
+        $contact->update($request->all());
+    }
 }
