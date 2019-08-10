@@ -77,7 +77,6 @@ class ContactsTest extends TestCase
     /** @test */
     public function a_contact_can_be_patched()
     {
-        $this->withoutExceptionHandling();
         $contact = factory(Contact::class)->create();
         $response = $this->patch('/api/contacts/'.$contact->id, $this->data());
 
@@ -89,6 +88,15 @@ class ContactsTest extends TestCase
         $this->assertEquals('ABC Company', $contact->company);
     }
 
+    /** @test */
+    public function a_contact_can_be_deleted()
+    {
+        $contact = factory(Contact::class)->create();
+        $response = $this->delete('/api/contacts/'.$contact->id);
+
+        $this->assertCount(0, Contact::all());
+    }
+    
     private function data()
     {
         return [
