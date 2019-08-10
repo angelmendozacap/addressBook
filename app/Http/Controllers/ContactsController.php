@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\Http\Requests\StoreContactsRequest;
+use Illuminate\Http\Request;
 
 class ContactsController extends Controller
 {
+    public function index(Request $request)
+    {
+        return $request->user()->contacts;
+    }
+    
     public function show(Contact $contact)
     {
         return $contact;
