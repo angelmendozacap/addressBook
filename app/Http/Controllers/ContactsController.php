@@ -20,4 +20,9 @@ class ContactsController extends Controller
     {
         $contact->update($request->all());
     }
+
+    public function destroy(Contact $contact)
+    {
+        $contact->delete();
+    }
 }
