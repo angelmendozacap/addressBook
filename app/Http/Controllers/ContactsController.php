@@ -13,8 +13,11 @@ class ContactsController extends Controller
         return $request->user()->contacts;
     }
     
-    public function show(Contact $contact)
+    public function show(Request $request, Contact $contact)
     {
+        if ($request->user()->isNot($contact->user)) {
+            return response([], 403);
+        }
         return $contact;
     }
     public function store(StoreContactsRequest $request)
