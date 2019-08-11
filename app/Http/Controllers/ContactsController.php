@@ -22,16 +22,22 @@ class ContactsController extends Controller
     }
     public function store(StoreContactsRequest $request)
     {
-        Contact::create($request->all());
+        request()->user()->contacts()->create($request->all());
     }
 
     public function update(StoreContactsRequest $request, Contact $contact)
     {
+        if (request()->user()->isNot($contact->user)) {
+            return response([], 403);
+        }
         $contact->update($request->all());
     }
 
     public function destroy(Contact $contact)
     {
+        if (request()->user()->isNot($contact->user)) {
+            return response([], 403);
+        }
         $contact->delete();
     }
 }
