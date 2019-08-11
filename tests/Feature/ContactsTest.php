@@ -6,6 +6,7 @@ use App\Contact;
 use App\User;
 use Carbon\Carbon;
 use function foo\func;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -54,7 +55,7 @@ class ContactsTest extends TestCase
     public function an_authenticated_user_can_add_a_contact()
     {
         // $this->post('/api/contacts', array_merge($this->data(), ['api_token' => $user->api_token]));
-        $this->post('/api/contacts', $this->data(), $this->headers());
+        $response = $this->post('/api/contacts', $this->data(), $this->headers());
 
         $contact = Contact::first();
 
@@ -62,6 +63,15 @@ class ContactsTest extends TestCase
         $this->assertEquals('test@gmail.com', $contact->email);
         $this->assertEquals('05/14/1988', $contact->birthday->format('m/d/Y'));
         $this->assertEquals('ABC Company', $contact->company);
+        $response->assertStatus(Response::HTTP_CREATED);
+        $response->assertJson([
+            'data' => [
+                'contact_id' => $contact->id,
+            ],
+            'links' => [
+                'self' => url('/contacts/' . $contact->id)
+            ],
+        ]);
     }
 
     /** @test */

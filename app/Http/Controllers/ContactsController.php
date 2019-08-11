@@ -6,6 +6,7 @@ use App\Contact;
 use App\Http\Resources\Contact as ContactResource;
 use App\Http\Requests\StoreContactsRequest;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContactsController extends Controller
 {
@@ -24,7 +25,8 @@ class ContactsController extends Controller
     public function store(StoreContactsRequest $request)
     {
         $this->authorize('create', Contact::class);
-        request()->user()->contacts()->create($request->all());
+        $contact = request()->user()->contacts()->create($request->all());
+        return (new ContactResource($contact))->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
     public function update(StoreContactsRequest $request, Contact $contact)
