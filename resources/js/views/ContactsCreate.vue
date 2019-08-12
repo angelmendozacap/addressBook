@@ -1,10 +1,10 @@
 <template>
   <div>
     <form @submit.prevent="submitForm">
-      <InputField name="name" label="Nombre del Contacto" placeholder="Nombre del Contacto" @update:field="form.name = $event"/>
-      <InputField name="email" label="Correo del Contacto" placeholder="Correo del Contacto" @update:field="form.email = $event"/>
-      <InputField name="company" label="Nombre de la Compañia" placeholder="Nombre de la Compañia" @update:field="form.company = $event"/>
-      <InputField name="birthday" label="Fecha de Nacimiento" placeholder="MM/DD/YYYY" @update:field="form.birthday = $event"/>
+      <InputField name="name" label="Nombre del Contacto" placeholder="Nombre del Contacto" @update:field="form.name = $event" :errors="errors"/>
+      <InputField name="email" label="Correo del Contacto" placeholder="Correo del Contacto" @update:field="form.email = $event" :errors="errors"/>
+      <InputField name="company" label="Nombre de la Compañia" placeholder="Nombre de la Compañia" @update:field="form.company = $event" :errors="errors"/>
+      <InputField name="birthday" label="Fecha de Nacimiento" placeholder="MM/DD/YYYY" @update:field="form.birthday = $event" :errors="errors"/>
 
       <div class="flex justify-end">
         <button class="py-2 px-4 rounded text-red-700 border mr-5 hover:border-red-700">Cancelar</button>
@@ -28,7 +28,8 @@
           'email': '',
           'company': '',
           'birthday': '',
-        }
+        },
+        errors: null,
       }
     },
     methods: {
@@ -37,7 +38,7 @@
           const res = await axios.post('/api/contacts', this.form)
           console.log(res)
         }catch (err) {
-          console.log(err)
+          this.errors = err.response.data.errors
         }
       }
     }

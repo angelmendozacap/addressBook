@@ -54,7 +54,7 @@
       'user'
     ],
     mounted() {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${this.user.api_token}`;
+      window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.user.api_token}`;
     }
   }
 </script>
