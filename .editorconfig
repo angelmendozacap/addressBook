@@ -16,4 +16,4 @@ indent_size = 2
 
 [*.{js,html,blade.php,vue,scss}]
 indent_style = space
-index_size = 2
+indent_size = 2
