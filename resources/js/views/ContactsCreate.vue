@@ -36,7 +36,7 @@
       async submitForm() {
         try {
           const res = await axios.post('/api/contacts', this.form)
-          console.log(res)
+          this.$router.push(res.data.links.self)
         }catch (err) {
           this.errors = err.response.data.errors
         }
