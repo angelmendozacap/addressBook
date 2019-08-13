@@ -37,7 +37,7 @@
       <div class="flex flex-col h-screen overflow-y-hidden w-full sm:w-2/3 md:w-3/4">
         <div class="h-16 px-6 border-b border-gray-400 flex items-center justify-between">
           <div>Contacts</div>
-          <div class="rounded-full text-white border border-gray-400 bg-blue-400 w-10 h-10 flex justify-center items-center">AM</div>
+          <UserCircle :name="user.name"/>
         </div>
         <section class="flex flex-col overflow-y-hidden flex-1">
           <router-view class="p-6 overflow-x-hidden"></router-view>
@@ -48,12 +48,16 @@
 </template>
 
 <script>
+  import UserCircle from './UserCircle'
   export default {
     name: "App",
     props: [
       'user'
     ],
-    mounted() {
+    components: {
+      UserCircle
+    },
+    created() {
       window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.user.api_token}`;
     }
   }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import ExampleComponent from "./components/ExampleComponent";
 import ContactsCreate from './views/ContactsCreate'
+import ContactsShow from "./views/ContactsShow";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -14,6 +15,10 @@ export default new VueRouter({
     {
       path: '/contacts/create',
       component: ContactsCreate,
+    },
+    {
+      path: '/contacts/:id',
+      component: ContactsShow,
     },
   ]
 })
