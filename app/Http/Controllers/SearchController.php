@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use Illuminate\Http\Request;
 use App\Http\Resources\Contact as ContactResource;
 class SearchController extends Controller
 {
-    public function index(Require $request)
+    public function index(Request $request)
     {
         $data = $request->validate([
             'searchTerm' => 'required',
