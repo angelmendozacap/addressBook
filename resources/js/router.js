@@ -14,27 +14,33 @@ export default new VueRouter({
     {
       path: '/',
       component: ExampleComponent,
+      meta: { title: 'Bienvenido'}
     },
     {
       path: '/contacts',
       component: ContactsIndex,
+      meta: { title: 'Contactos'}
     },
     {
       path: '/contacts/create',
       component: ContactsCreate,
+      meta: { title: 'Agregar Nuevo Contacto'}
     },
     {
       path: '/contacts/:id',
       component: ContactsShow,
+      meta: { title: 'Detalles del Contacto'}
     },
     {
       path: '/contacts/:id/edit',
       component: ContactsEdit,
+      meta: { title: 'Editar Contacto'}
     },
 
     {
       path: '/birthdays',
       component: BirthdaysIndex,
+      meta: { title: 'Cumpleaños de este Mes'}
     }
   ]
 })

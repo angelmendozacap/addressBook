@@ -36,7 +36,7 @@
       </div>
       <div class="flex flex-col h-screen overflow-y-hidden w-full sm:w-2/3 md:w-3/4">
         <div class="h-16 px-6 border-b border-gray-400 flex items-center justify-between">
-          <div>Contacts</div>
+          <div>{{ title }}</div>
           <div class="flex items-center">
             <SearchBar />
             <UserCircle :name="user.name"/>
@@ -63,7 +63,21 @@
       SearchBar
     },
     created() {
+      this.title = this.$route.meta.title
       window.axios.defaults.headers.common['Authorization'] = `Bearer ${this.user.api_token}`;
+    },
+    data() {
+      return {
+        title: ''
+      }
+    },
+    watch: {
+      $route(to, from) {
+        this.title = to.meta.title
+      },
+      title() {
+        document.title = `${this.title} | Jot - Aplicación SPA`
+      }
     }
   }
 </script>
